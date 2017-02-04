@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String[] spinnerDayinGeneral = {"Day in a Word", "YAY!", "nay", "M'eh"};
     private String DayinGeneral;
-    private String Text = "Journal.txt";
+    private String fileName = "Journal.txt";
     private String Folder = "Life";
     String date = new SimpleDateFormat("dd-MM-yyy").format(new Date());
 
@@ -59,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         spinnerDG.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-                if (parent.getItemAtPosition(position).toString().equals("Day in A Word")) {
-                    DayinGeneral = "Defaulted to 'YAY' 'cause optimism!";
+                if (parent.getItemAtPosition(position).toString().equals("Day in a Word")) {
+                    DayinGeneral = "M'eh";
                 } else {
                     DayinGeneral = parent.getItemAtPosition(position).toString();
                 }
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                DayinGeneral = "Defaulted to 'YAY' 'cause optimism!";
+                DayinGeneral = "M'eh";
             }
         });
 
@@ -76,18 +78,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    mFile = new File(getExternalFilesDir(Folder), Text);
-                    fileoutputStream = new FileOutputStream(mFile);
-
-                    fileoutputStream.write(date.getBytes());
-                    fileoutputStream.write("  -  ".getBytes());
-                    fileoutputStream.write(DayinGeneral.getBytes());
-                    fileoutputStream.write("  -  ".getBytes());
-                    fileoutputStream.write(editTextDW.getText().toString().getBytes());
-                    fileoutputStream.write("  -  ".getBytes());
-                    fileoutputStream.write(editTextDB.getText().toString().getBytes());
-                    fileoutputStream.write("\n".getBytes());
-
+                    mFile = new File(getExternalFilesDir(Folder), fileName);
+                    fileoutputStream = new FileOutputStream(mFile, true);
+                    Print();
                     fileoutputStream.close();
 //            mGoogleApiClient.connect();
 
@@ -96,5 +89,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    protected void Print() {
+        try {
+            fileoutputStream.write("\n".getBytes());
+            fileoutputStream.write(date.getBytes());
+            fileoutputStream.write("  -  ".getBytes());
+            fileoutputStream.write(DayinGeneral.getBytes());
+            fileoutputStream.write("  -  ".getBytes());
+            fileoutputStream.write(editTextDW.getText().toString().getBytes());
+            fileoutputStream.write("  -  ".getBytes());
+            fileoutputStream.write(editTextDB.getText().toString().getBytes());
+            fileoutputStream.write("\n".getBytes());
+            fileoutputStream.close();
+//            mGoogleApiClient.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
