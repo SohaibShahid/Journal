@@ -1,5 +1,11 @@
 package com.example.sohaibshahid.journal;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     File mFile;
     FileOutputStream fileoutputStream;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
                 DayinGeneral = "M'eh";
             }
         });
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
+        calendar.set(Calendar.MINUTE, 5);
+        calendar.set(Calendar.SECOND, 0);
+        Intent intent1 = new Intent(MainActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
