@@ -1,6 +1,8 @@
 package com.example.sohaibshahid.journal;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.icu.util.Calendar;
@@ -8,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,6 +63,28 @@ public class MainActivity extends AppCompatActivity {
         spinnerDG = (Spinner) findViewById(R.id.spinnerDG);
         mainButton = (Button) findViewById(R.id.mainButton);
 
+        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+//        long when = System.currentTimeMillis();
+//
+//        Notification mNotification = new Notification.Builder(this)
+//                .setSmallIcon(R.drawable.ic_stat_name)
+//                .setContentTitle("Daily Log")
+//                .setContentText("You seem to have forgotten to log in today. Want to do it now?")
+//                .setVibrate(new long[]{1000, 1000})
+//                .build();
+//
+//        notificationManager.notify(0,mNotification);
+        Intent intent1 = new Intent(MainActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, 0);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,spinnerDayinGeneral);
 
@@ -80,15 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 DayinGeneral = "M'eh";
             }
         });
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 5);
-        calendar.set(Calendar.SECOND, 0);
-        Intent intent1 = new Intent(MainActivity.this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override

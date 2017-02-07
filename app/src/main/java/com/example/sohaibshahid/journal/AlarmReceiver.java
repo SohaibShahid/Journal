@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+import android.widget.Toast;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by Sohaib shahid on 2/6/2017.
@@ -21,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         long when = System.currentTimeMillis();
         NotificationManager notificationManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
+                .getSystemService(NOTIFICATION_SERVICE);
 
         Intent notificationIntent = new Intent(context, MainActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -29,16 +33,16 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
                 notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Log.d("So", "Made it");
 
         Notification mNotifyBuilder = new NotificationCompat.Builder(
                 context).setSmallIcon(R.mipmap.ic_launcher_logo)
                 .setContentTitle("Daily Log")
-                .setContentText("You seem to have forgotten to log in today").setSound(alarmSound)
-                .setAutoCancel(true).setWhen(when)
+                .setContentText("You seem to have forgotten to log in today. Want to do it now?")
                 .setContentIntent(pendingIntent)
-                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                .setVibrate(new long[]{1000, 1000})
                 .build();
+
+        notificationManager.notify(0,mNotifyBuilder);
     }
 }
