@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String[] spinnerDayinGeneral = {"Day in a Word", "YAY!", "nay", "M'eh"};
     private String DayinGeneral;
-    private String fileName = "Journal.sav";
+    private String fileName = "Journal.txt";
     private String Folder = "Life";
     String date = new SimpleDateFormat("dd-MM-yyy").format(new Date());
 
