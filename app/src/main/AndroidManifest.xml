@@ -10,6 +10,8 @@
         android:theme="@style/AppTheme">
         <receiver android:name=".AlarmReceiver"
             android:enabled="true"></receiver>
+        <receiver android:name=".YearlyReminder"
+            android:enabled="true"></receiver>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

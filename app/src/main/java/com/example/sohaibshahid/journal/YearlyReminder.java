@@ -6,19 +6,15 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.widget.Toast;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
- * Created by Sohaib shahid on 2/6/2017.
+ * Created by Sohaib shahid on 2/13/2017.
  */
 
-public class AlarmReceiver extends BroadcastReceiver {
+public class YearlyReminder extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
@@ -36,10 +32,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Notification mNotifyBuilder = new NotificationCompat.Builder(
                 context).setSmallIcon(R.mipmap.ic_launcher_logo)
-                .setContentTitle("Daily Log")
-                .setContentText("Remember to log your day!")
+                .setContentTitle("Yearly Reminder")
+                .setContentText("Do remember to go through the log to see how much has changed over the year!")
                 .setContentIntent(pendingIntent)
-                .setVibrate(new long[]{1000, 1000})
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .build();
 
         notificationManager.notify(0,mNotifyBuilder);

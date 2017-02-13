@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String[] spinnerDayinGeneral = {"Day in a Word", "YAY!", "nay", "M'eh"};
     private String DayinGeneral;
-    private String fileName = "Journal.txt";
+    private String fileName = "Journal.sav";
     private String Folder = "Life";
     String date = new SimpleDateFormat("dd-MM-yyy").format(new Date());
 
@@ -65,10 +65,18 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
+        Calendar calendarDaily = Calendar.getInstance();
+        calendarDaily.set(Calendar.HOUR_OF_DAY, 21);
+        calendarDaily.set(Calendar.MINUTE, 0);
+        calendarDaily.set(Calendar.SECOND, 0);
+
+        Calendar calendarYearly = Calendar.getInstance();
+        calendarYearly.set(Calendar.MONTH, 12);
+        calendarYearly.set(Calendar.DAY_OF_MONTH, 31);
+        calendarYearly.set(Calendar.HOUR_OF_DAY, 21);
+        calendarYearly.set(Calendar.MINUTE, 0);
+        calendarYearly.set(Calendar.SECOND, 0);
+
 
 //        long when = System.currentTimeMillis();
 //
@@ -80,10 +88,15 @@ public class MainActivity extends AppCompatActivity {
 //                .build();
 //
 //        notificationManager.notify(0,mNotification);
-        Intent intent1 = new Intent(MainActivity.this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, 0);
-        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        Intent intentDaily = new Intent(MainActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntentDaily = PendingIntent.getBroadcast(MainActivity.this, 0,intentDaily, 0);
+        AlarmManager daily = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        daily.setRepeating(AlarmManager.RTC_WAKEUP, calendarDaily.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntentDaily);
+
+        Intent intentYearly = new Intent(MainActivity.this, YearlyReminder.class);
+        PendingIntent pendingIntentYearly = PendingIntent.getBroadcast(MainActivity.this, 0,intentYearly, 0);
+        AlarmManager yearly = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        yearly.set(AlarmManager.RTC_WAKEUP, calendarYearly.getTimeInMillis(), pendingIntentYearly);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,spinnerDayinGeneral);
