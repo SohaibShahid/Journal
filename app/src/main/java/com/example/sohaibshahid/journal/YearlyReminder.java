@@ -33,7 +33,7 @@ public class YearlyReminder extends BroadcastReceiver {
         Notification mNotifyBuilder = new NotificationCompat.Builder(
                 context).setSmallIcon(R.mipmap.ic_launcher_logo)
                 .setContentTitle("Yearly Reminder")
-                .setContentText("Do remember to go through the log to see how much has changed over the year!")
+                .setContentText("Do remember to go through the log to see how much has changed over the year! NOTE: convert .txt to .doc for better reading experience")
                 .setContentIntent(pendingIntent)
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .build();
