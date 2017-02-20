@@ -39,7 +39,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentTitle("Daily Log")
                 .setContentText("Remember to log your day!")
                 .setContentIntent(pendingIntent)
-                .setVibrate(new long[]{1000, 1000})
+                .setVibrate(new long[]{1000})
                 .build();
 
         notificationManager.notify(0,mNotifyBuilder);

@@ -10,47 +10,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.sohaibshahid.journal.MainActivity">
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:id="@+id/spinnerDG"
-        android:layout_alignParentTop="true"
-        android:gravity="center_horizontal"
-        android:layout_centerHorizontal="true" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="text|textPersonName"
+        android:inputType="text|textAutoCorrect|textAutoComplete|textPersonName"
         android:ems="10"
         android:layout_below="@+id/spinnerDG"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="26dp"
         android:id="@+id/editTextDW"
         android:singleLine="false"
         android:gravity="center_horizontal"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:hint="Day in a Word" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inputType="text|textAutoCorrect|textAutoComplete|textMultiLine|textImeMultiLine|textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/editTextDW"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:id="@+id/editTextDB"
-        android:gravity="center_horizontal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:hint="Day in Brief"
-        android:layout_above="@+id/mainButton"
-        android:singleLine="true"
-        android:selectAllOnFocus="true" />
+        android:hint="Day in a Word"
+        android:elegantTextHeight="true" />
 
     <Button
-        android:text="SAVE!"
+        android:text="Log"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mainButton"
@@ -58,6 +34,50 @@
         android:elevation="21dp"
         android:onClick="onClick (MainActivity)"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:elegantTextHeight="true"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:id="@+id/spinnerDG"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:elegantTextHeight="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text|textAutoCorrect|textAutoComplete|textMultiLine|textImeMultiLine|textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextDB"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:hint="Day in Brief"
+        android:singleLine="false"
+        android:selectAllOnFocus="true"
+        android:layout_below="@+id/editTextTIL"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="52dp"
+        android:elegantTextHeight="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text|textPersonName"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="39dp"
+        android:id="@+id/editTextTIL"
+        android:hint="Today I Learned"
+        android:singleLine="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_below="@+id/editTextDW"
+        android:layout_alignLeft="@+id/editTextDW"
+        android:layout_alignStart="@+id/editTextDW"
+        android:elegantTextHeight="true"/>
 
 </RelativeLayout>

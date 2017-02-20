@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editTextDW, editTextDB;
+    EditText editTextDW, editTextDB, editTextTIL;
     private Spinner spinnerDG;
     Button mainButton;
 
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         editTextDB = (EditText) findViewById(R.id.editTextDB);
         editTextDW = (EditText) findViewById(R.id.editTextDW);
+        editTextTIL = (EditText) findViewById(R.id.editTextTIL);
         spinnerDG = (Spinner) findViewById(R.id.spinnerDG);
         mainButton = (Button) findViewById(R.id.mainButton);
 
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     fileoutputStream = new FileOutputStream(mFile, true);
                     Print();
                     fileoutputStream.close();
+                    Toast.makeText(MainActivity.this, "Logged", Toast.LENGTH_SHORT).show();
 //            mGoogleApiClient.connect();
 
                 } catch (IOException e) {
@@ -144,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
             fileoutputStream.write(DayinGeneral.getBytes());
             fileoutputStream.write("  -  ".getBytes());
             fileoutputStream.write(editTextDW.getText().toString().getBytes());
+            fileoutputStream.write("  -  ".getBytes());
+            fileoutputStream.write(editTextTIL.getText().toString().getBytes());
             fileoutputStream.write("  -  ".getBytes());
             fileoutputStream.write(editTextDB.getText().toString().getBytes());
             fileoutputStream.write("\n".getBytes());
