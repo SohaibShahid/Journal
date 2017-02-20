@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/mainButton"
         style="@android:style/Widget.Button"
-        android:elevation="21dp"
+        android:elevation="24dp"
         android:onClick="onClick (MainActivity)"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
