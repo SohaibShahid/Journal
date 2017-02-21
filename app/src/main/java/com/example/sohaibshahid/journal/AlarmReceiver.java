@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.support.annotation.MainThread;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
         Notification mNotifyBuilder = new NotificationCompat.Builder(
-                context).setSmallIcon(R.mipmap.ic_launcher_logo)
+                context).setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle("Daily Log")
                 .setContentText("Remember to log your day!")
                 .setContentIntent(pendingIntent)

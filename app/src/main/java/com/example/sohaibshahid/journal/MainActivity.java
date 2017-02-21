@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void Print() {
+    public void Print() {
         try {
             fileoutputStream.write("\n".getBytes());
             fileoutputStream.write(date.getBytes());
