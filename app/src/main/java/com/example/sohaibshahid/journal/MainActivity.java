@@ -79,17 +79,6 @@ public class MainActivity extends AppCompatActivity {
         calendarYearly.set(Calendar.MINUTE, 0);
         calendarYearly.set(Calendar.SECOND, 0);
 
-
-//        long when = System.currentTimeMillis();
-//
-//        Notification mNotification = new Notification.Builder(this)
-//                .setSmallIcon(R.drawable.ic_stat_name)
-//                .setContentTitle("Daily Log")
-//                .setContentText("You seem to have forgotten to log in today. Want to do it now?")
-//                .setVibrate(new long[]{1000, 1000})
-//                .build();
-//
-//        notificationManager.notify(0,mNotification);
         Intent intentDaily = new Intent(MainActivity.this, AlarmReceiver.class);
         PendingIntent pendingIntentDaily = PendingIntent.getBroadcast(MainActivity.this, 0,intentDaily, 0);
         AlarmManager daily = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
