@@ -1,17 +1,14 @@
 package com.example.sohaibshahid.journal;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -35,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String[] spinnerDayinGeneral = {"Day in a Word", "YAY!", "nay", "M'eh"};
     private String DayinGeneral;
-    private String fileName = "Journal.txt";
+    public String fileNameText = "Journal.txt";
+    public String fileNameExcel = "Journal-Data.xls";
     private String Folder = "Life";
     String date = new SimpleDateFormat("dd-MM-yyy").format(new Date());
 
@@ -114,11 +111,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    mFile = new File(getExternalFilesDir(Folder), fileName);
+                    mFile = new File(getExternalFilesDir(Folder), fileNameText);
                     fileoutputStream = new FileOutputStream(mFile, true);
-                    Print();
+                    PrintText();
                     fileoutputStream.close();
-                    Toast.makeText(MainActivity.this, "Logged", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Logged Text", Toast.LENGTH_SHORT).show();
+//            mGoogleApiClient.connect();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    mFile = new File(getExternalFilesDir(Folder), fileNameExcel);
+                    fileoutputStream = new FileOutputStream(mFile, true);
+                    PrintData();
+                    fileoutputStream.close();
+                    Toast.makeText(MainActivity.this, "Logged Data", Toast.LENGTH_SHORT).show();
 //            mGoogleApiClient.connect();
 
                 } catch (IOException e) {
@@ -128,7 +137,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void Print() {
+    public void PrintData() {
+        try {
+            //This is for the excel sheet
+            fileoutputStream.write(date.getBytes());
+            fileoutputStream.write("\t".getBytes());
+            fileoutputStream.write(DayinGeneral.getBytes());
+            fileoutputStream.write("\t".getBytes());
+            fileoutputStream.write(editTextDW.getText().toString().getBytes());
+            fileoutputStream.write("\t".getBytes());
+            fileoutputStream.write(editTextTIL.getText().toString().getBytes());
+            fileoutputStream.write("\t".getBytes());
+            fileoutputStream.write(editTextDB.getText().toString().getBytes());
+            fileoutputStream.write("\n".getBytes());
+            fileoutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void PrintText() {
         try {
             fileoutputStream.write("\n".getBytes());
             fileoutputStream.write(date.getBytes());
@@ -142,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
             fileoutputStream.write(editTextDB.getText().toString().getBytes());
             fileoutputStream.write("\n".getBytes());
             fileoutputStream.close();
-//            mGoogleApiClient.connect();
         } catch (IOException e) {
             e.printStackTrace();
         }
