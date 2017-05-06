@@ -25,7 +25,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editTextDW, editTextDB, editTextTIL;
+    EditText editTextDW, editTextDB, editTextTIL, editTextG;
     private Spinner spinnerDG;
     Button mainButton;
 
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         editTextDB = (EditText) findViewById(R.id.editTextDB);
         editTextDW = (EditText) findViewById(R.id.editTextDW);
         editTextTIL = (EditText) findViewById(R.id.editTextTIL);
+        editTextG = (EditText) findViewById(R.id.editTextG);
         spinnerDG = (Spinner) findViewById(R.id.spinnerDG);
         mainButton = (Button) findViewById(R.id.mainButton);
 
@@ -148,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
             fileoutputStream.write("\t".getBytes());
             fileoutputStream.write(editTextTIL.getText().toString().getBytes());
             fileoutputStream.write("\t".getBytes());
+            fileoutputStream.write(editTextG.getText().toString().getBytes());
+            fileoutputStream.write("\t".getBytes());
             fileoutputStream.write(editTextDB.getText().toString().getBytes());
             fileoutputStream.write("\n".getBytes());
             fileoutputStream.close();
@@ -166,6 +169,8 @@ public class MainActivity extends AppCompatActivity {
             fileoutputStream.write(editTextDW.getText().toString().getBytes());
             fileoutputStream.write("  -  ".getBytes());
             fileoutputStream.write(editTextTIL.getText().toString().getBytes());
+            fileoutputStream.write("  -  ".getBytes());
+            fileoutputStream.write(editTextG.getText().toString().getBytes());
             fileoutputStream.write("  -  ".getBytes());
             fileoutputStream.write(editTextDB.getText().toString().getBytes());
             fileoutputStream.write("\n".getBytes());
