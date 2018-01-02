@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Journal</string>
+    <string-array name="DW">
+        <item>Day in a General</item>
+        <item>YAY!</item>
+        <item>Meh</item>
+        <item>nay</item>
+    </string-array>
+
+    <string-array name="EL">
+        <item>Exercise Target</item>
+        <item>Upper</item>
+        <item>Lower</item>
+        <item>Arms</item>
+        <item>Shoulders</item>
+        <item>Rest</item>
+        <item>Skip</item>
+    </string-array>
+
 </resources>

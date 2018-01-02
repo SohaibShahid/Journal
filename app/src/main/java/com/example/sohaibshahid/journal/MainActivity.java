@@ -25,12 +25,14 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editTextDW, editTextDB, editTextTIL, editTextG;
-    private Spinner spinnerDG;
+    EditText editTextDW, editTextDB, editTextTIL, editTextG, editTextEL;
+    private Spinner spinnerDG, spinnerEL;
     Button mainButton;
 
-    private static final String[] spinnerDayinGeneral = {"Day in a Word", "YAY!", "nay", "M'eh"};
+    private static final String[] spinnerDayinGeneral = {"Day in a General", "YAY!", "Meh", "nay"};
+
     private String DayinGeneral;
+    private String ExerciseDefault;
     public String fileNameText = "Journal.txt";
     public String fileNameExcel = "Journal-Data.xls";
     private String Folder = "Life";
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         editTextTIL = (EditText) findViewById(R.id.editTextTIL);
         editTextG = (EditText) findViewById(R.id.editTextG);
         spinnerDG = (Spinner) findViewById(R.id.spinnerDG);
+        spinnerEL = (Spinner) findViewById(R.id.spinnerEL);
         mainButton = (Button) findViewById(R.id.mainButton);
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
@@ -87,11 +90,33 @@ public class MainActivity extends AppCompatActivity {
         AlarmManager yearly = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         yearly.set(AlarmManager.RTC_WAKEUP, calendarYearly.getTimeInMillis(), pendingIntentYearly);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,spinnerDayinGeneral);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                R.layout.support_simple_spinner_dropdown_item,spinnerDayinGeneral);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDG.setAdapter(adapter);
+        ArrayAdapter adapterEL = ArrayAdapter.createFromResource(this, R.array.EL, R.layout.spinneritem2);
+
+        adapterEL.setDropDownViewResource(R.layout.spinnerdropdownitem2);
+        spinnerEL.setAdapter(adapterEL);
+        spinnerEL.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+                if (parent.getItemAtPosition(position).toString().equals("Exercise Target")) {
+                    ExerciseDefault = "Skip";
+                } else {
+                    ExerciseDefault = parent.getItemAtPosition(position).toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                ExerciseDefault = "Skip";
+            }
+        });
+
+        ArrayAdapter adapterDW = ArrayAdapter.createFromResource(this, R.array.DW, R.layout.spinneritem);
+
+        adapterDW.setDropDownViewResource(R.layout.spinnerdropdownitem);
+        spinnerDG.setAdapter(adapterDW);
         spinnerDG.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -149,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
             fileoutputStream.write("\t".getBytes());
             fileoutputStream.write(editTextTIL.getText().toString().getBytes());
             fileoutputStream.write("\t".getBytes());
+            fileoutputStream.write(ExerciseDefault.getBytes());
+            fileoutputStream.write("\t".getBytes());
             fileoutputStream.write(editTextG.getText().toString().getBytes());
             fileoutputStream.write("\t".getBytes());
             fileoutputStream.write(editTextDB.getText().toString().getBytes());
@@ -169,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
             fileoutputStream.write(editTextDW.getText().toString().getBytes());
             fileoutputStream.write("  -  ".getBytes());
             fileoutputStream.write(editTextTIL.getText().toString().getBytes());
+            fileoutputStream.write("  -  ".getBytes());
+            fileoutputStream.write(ExerciseDefault.getBytes());
             fileoutputStream.write("  -  ".getBytes());
             fileoutputStream.write(editTextG.getText().toString().getBytes());
             fileoutputStream.write("  -  ".getBytes());
